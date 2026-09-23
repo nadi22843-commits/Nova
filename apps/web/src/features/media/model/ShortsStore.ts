@@ -1,0 +1,11 @@
+export type LocalShort={id:string;title:string;seller:string;duration:number;videoUrl?:string;image?:string;createdAt:string};
+const META='nova.shorts.local.v1', DB='nova-media-v1', STORE='videos';
+export function loadLocalShorts():LocalShort[]{try{const x=JSON.parse(localStorage.getItem(META)||'[]');return Array.isArray(x)?x:[]}catch{return[]}}
+function saveMeta(x:LocalShort[]){localStorage.setItem(META,JSON.stringify(x))}
+function db():Promise<IDBDatabase>{return new Promise((resolve,reject)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(STORE))r.result.createObjectStore(STORE)};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+async function put(id:string,file:File){const d=await db();await new Promise<void>((resolve,reject)=>{const tx=d.transaction(STORE,'readwrite');tx.objectStore(STORE).put(file,id);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error)})}
+export async function getVideoUrl(id:string){const d=await db();const blob=await new Promise<Blob|undefined>((resolve,reject)=>{const r=d.transaction(STORE).objectStore(STORE).get(id);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});return blob?URL.createObjectURL(blob):''}
+// Сообщение ошибки — стабильный код, а не готовый текст: экран сам переводит
+// его на язык интерфейса (см. shorts.error.* в словарях).
+export function videoDuration(file:File):Promise<number>{return new Promise((resolve,reject)=>{const v=document.createElement('video');const url=URL.createObjectURL(file);v.preload='metadata';v.onloadedmetadata=()=>{const n=v.duration;URL.revokeObjectURL(url);resolve(n)};v.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('video-read-failed'))};v.src=url})}
+export async function addShort(file:File,title:string,seller:string){const duration=await videoDuration(file);if(!Number.isFinite(duration)||duration<=0)throw new Error('video-duration-unknown');if(duration>15.05)throw new Error('video-too-long');if(file.size>30*1024*1024)throw new Error('video-too-large');const id=`short-user-${Date.now()}`;await put(id,file);const item:LocalShort={id,title:title.trim()||'Мой Short',seller:seller.trim()||'@nova_user',duration:Math.ceil(duration),createdAt:new Date().toISOString()};saveMeta([item,...loadLocalShorts()]);return item}

@@ -1,0 +1,4 @@
+import {Component,type ErrorInfo,type ReactNode} from 'react';
+import { translate } from '../shared/i18n';
+import { storedLanguage } from '../categories/core/LocaleStore';
+export class AppErrorBoundary extends Component<{children:ReactNode},{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return{failed:true}}componentDidCatch(error:Error,info:ErrorInfo){console.error('[Nova]',error,info)}render(){if(this.state.failed)return <main className="page narrow"><div className="panel nova-empty"><h1>{translate(storedLanguage(), 'app.somethingWrong')}</h1><p>{translate(storedLanguage(), 'app.dataSafe')}</p><button className="primary-action" onClick={()=>location.reload()}>{translate(storedLanguage(), 'app.retry')}</button><a className="secondary-action" href="/">{translate(storedLanguage(), 'app.toHome')}</a></div></main>;return this.props.children}}
