@@ -4,9 +4,9 @@ import { useT } from '../../shared/i18n/useT';
 import type { TranslationKey } from '../../shared/i18n';
 
 const slides: { eyebrow: TranslationKey; title: TranslationKey; text: TranslationKey; image: string; position: string; to: string }[] = [
-  { eyebrow: 'hero.slide1.eyebrow', title: 'hero.slide1.title', text: 'hero.slide1.text', image: '/assets/laptop.jpg', position: 'center 55%', to: '/electronics' },
-  { eyebrow: 'hero.slide2.eyebrow', title: 'hero.slide2.title', text: 'hero.slide2.text', image: '/assets/car.jpg', position: 'center 58%', to: '/auto' },
   { eyebrow: 'hero.slide3.eyebrow', title: 'hero.slide3.title', text: 'hero.slide3.text', image: '/assets/house.jpg', position: 'center 52%', to: '/realty' },
+  { eyebrow: 'hero.slide2.eyebrow', title: 'hero.slide2.title', text: 'hero.slide2.text', image: '/assets/car.jpg', position: 'center 58%', to: '/auto' },
+  { eyebrow: 'hero.slide1.eyebrow', title: 'hero.slide1.title', text: 'hero.slide1.text', image: '/assets/laptop.jpg', position: 'center 55%', to: '/electronics' },
 ];
 
 export function HeroSlider() {

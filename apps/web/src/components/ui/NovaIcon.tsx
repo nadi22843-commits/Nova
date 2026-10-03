@@ -3,7 +3,7 @@ import type { SVGProps, ReactNode } from 'react';
 export type NovaIconName =
   | 'logo' | 'search' | 'shorts' | 'heart' | 'heartFilled' | 'cart' | 'user' | 'plus'
   | 'car' | 'home' | 'electronics' | 'sofa' | 'hobby' | 'services' | 'work' | 'more'
-  | 'location' | 'shield' | 'star' | 'bell' | 'filter';
+  | 'location' | 'shield' | 'star' | 'bell' | 'filter' | 'chat';
 
 type Props = SVGProps<SVGSVGElement> & { name: NovaIconName; size?: number };
 
@@ -42,6 +42,7 @@ export function NovaIcon({ name, size = 22, ...props }: Props) {
     shield: <><path d="M12 3 20 6v5c0 5.1-3.2 8.4-8 10-4.8-1.6-8-4.9-8-10V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></>,
     bell: <><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15L6 16Z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></>,
     filter: <><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></>,
+    chat: <><path d="M4 5.5h16v11H9l-5 3v-14Z"/><path d="M8 10h8M8 13h5"/></>,
     star: <path d="m12 3 2.6 5.3 5.9.9-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.9L12 3Z"/>,
   };
 

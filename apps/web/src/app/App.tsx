@@ -24,10 +24,15 @@ import { initCategories, getCategories } from '../categories';
 import { initUserListings } from '../features/listings/model/UserListingsStore';
 import { ChatPage } from '../features/chat/ChatPage';
 import { NotificationsPage } from '../features/notifications/pages/NotificationsPage';
+import { MessagesPage } from '../features/chat/MessagesPage';
+import { LocationPage } from '../pages/LocationPage';
 import { AppErrorBoundary } from './AppErrorBoundary';
 import { PageGuard } from '../components/safety/SafeBoundary';
 import { ActionErrorNotice } from '../components/safety/ActionErrorNotice';
 import { useServerCatalog } from '../shared/api/useServerCatalog';
+import { RentalPage } from '../features/rental/RentalPage';
+import { RentalDetailPage } from '../features/rental/RentalDetailPage';
+import { RentalPublishPage } from '../features/rental/RentalPublishPage';
 
 // Реестры поднимаются один раз до отрисовки маршрутов.
 initCategories();
@@ -79,6 +84,11 @@ export function App() {
                 <Route path="/support" element={<PageGuard nameKey="nav.support"><SupportPage /></PageGuard>} />
                 <Route path="/chat/:listingId" element={<PageGuard nameKey="chat.title"><ChatPage /></PageGuard>} />
                 <Route path="/notifications" element={<PageGuard nameKey="nav.notifications"><NotificationsPage /></PageGuard>} />
+                <Route path="/messages" element={<MessagesPage />} />
+                <Route path="/location" element={<LocationPage />} />
+                <Route path="/rental" element={<RentalPage />} />
+                <Route path="/rental/publish" element={<RentalPublishPage />} />
+                <Route path="/rental/:id" element={<RentalDetailPage />} />
                 <Route path="/listing/:id" element={<PageGuard nameKey="nav.listing"><ListingPage /></PageGuard>} />
                 {/* Состояние реестров: что поднялось, что деградировало, что отключено. */}
                 <Route path="/system" element={<PageGuard nameKey="nav.system"><SystemPage /></PageGuard>} />

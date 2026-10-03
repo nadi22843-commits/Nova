@@ -13,4 +13,8 @@ export const shortsDemo:NovaShort[]=[
 {id:'short-6',title:'Кухня на заказ',price:45000,priceFrom:true,seller:'@kuhni.top',duration:'0:15',image:'/assets/short-kitchen.jpg'},
 {id:'short-7',title:'Горный велосипед',price:18900,seller:'@velo_market',duration:'0:15',image:'/assets/short-bike.jpg'},
 {id:'short-8',title:'Сумка кожаная',price:7900,seller:'@bag.style',duration:'0:15',image:'/assets/short-bag.jpg'},
+{id:'short-9',title:'Дом недели',price:0,seller:'@nova.realty',duration:'0:18',image:'/assets/house.jpg'},
+{id:'short-10',title:'Идеи для интерьера',price:0,seller:'@nova.home',duration:'0:16',image:'/assets/apartment.jpg'},
+{id:'short-11',title:'Новый образ',price:0,seller:'@nova.style',duration:'0:14',image:'/assets/shoes.jpg'},
+{id:'short-12',title:'Город рядом',price:0,seller:'@nova.city',duration:'0:20',image:'/assets/hero.jpg'},
 ];

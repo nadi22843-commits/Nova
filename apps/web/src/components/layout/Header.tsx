@@ -10,11 +10,17 @@ import { NotificationsButton } from '../../features/notifications/components/Not
 import { ActionGuard } from '../safety/SafeBoundary';
 import { safe } from '../safety/safeAction';
 import { useT } from '../../shared/i18n/useT';
+import { useLocale } from '../../categories/core/LocaleStore';
+import { usePlace } from '../../categories/core/places/PlaceStore';
+import { displayName } from '../../categories/core/places/registry';
 
 export function Header() {
   const t = useT();
   const [q, setQ] = useState('');
   const nav = useNavigate();
+  const { country, language } = useLocale();
+  const { selectedPlace } = usePlace();
+  const placeLabel = selectedPlace ? displayName(selectedPlace, language) : country?.nativeName ?? ''; 
 
   return <header className="header">
     <Link className="logo" to="/" aria-label={t('app.homeLink')}>
@@ -26,9 +32,11 @@ export function Header() {
       <input value={q} onChange={e => setQ(e.target.value)} placeholder={t('app.searchPlaceholder')}/>
       <button className="search-filter-button" type="button" aria-label="Фильтры" title="Фильтры" onClick={() => nav(`/search${q.trim() ? `?q=${encodeURIComponent(q.trim())}&filters=1` : '?filters=1'}`)}><NovaIcon name="filter" size={18}/></button>
       <button className="search-submit-button" type="submit"><NovaIcon name="search" size={17}/><span>{t('app.search')}</span></button>
+      <Link className="all-categories-button" to="/search" title="Все категории"><NovaIcon name="more" size={17}/><span>Все категории</span></Link>
     </form>
 
     <nav className="nav-actions" aria-label={t('app.mainNav')}>
+      <Link className="mobile-location-button" to="/location"><NovaIcon name="location" size={17}/><span>{placeLabel}</span></Link>
       {/* Каждая кнопка шапки под своим предохранителем: сбой одной
           (например, счётчика уведомлений) не убирает остальные. */}
       <ActionGuard name={t('nav.theme')} fallback={null}><ThemeToggle/></ActionGuard>

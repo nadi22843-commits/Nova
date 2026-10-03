@@ -40,6 +40,8 @@ export function PublishPage() {
       <h1>{t('nav.publish')}</h1>
       <p className="nova-muted">{t('publish.chooseCategory')}</p>
 
+      <Link to="/rental/publish" className="publish-rental-callout"><span className="rental-new">НОВИНКА</span><div><b>Сдать люксовую вещь в аренду</b><small>Цена за день, депозит владельца и прямой контакт с арендатором</small></div><strong>›</strong></Link>
+
       <div className="nova-categories" style={{ marginTop: 20 }}>
         {tiles.map(({ icon, label, to }) => (
           <Link to={to} className="nova-category" key={label}>

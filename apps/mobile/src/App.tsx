@@ -353,6 +353,8 @@ function Root() {
     <>
       <HomeScreen
         place={placeLabel}
+        money={money}
+        onOpenItem={(item: CatalogItem) => setScreen({ name: 'detail', itemId: item.id })}
         onOpenCategory={(path: string) => setScreen({ name: 'category', categoryPath: path, intentId: null })}
         onOpenSystem={() => setScreen({ name: 'place', back: { name: 'home' } })}
       />
@@ -361,8 +363,18 @@ function Root() {
   );
 
   function fallbackHome() {
-    setScreen({ name: 'home' });
-    return bar;
+    return (
+      <>
+        <HomeScreen
+          place={placeLabel}
+          money={money}
+          onOpenItem={(item: CatalogItem) => setScreen({ name: 'detail', itemId: item.id })}
+          onOpenCategory={(path: string) => setScreen({ name: 'category', categoryPath: path, intentId: null })}
+          onOpenSystem={() => setScreen({ name: 'place', back: { name: 'home' } })}
+        />
+        {bar}
+      </>
+    );
   }
   }
 }
